@@ -9,13 +9,13 @@ import { useDispatch } from 'react-redux';
 import { logout } from '../context/loginContext/authActions';
 import { jwtDecode } from "jwt-decode";
 import ManageProduct from './adminSections/ManageProduct';
+import ManageAccount from './adminSections/ManageAccount';
 
 const AdminDashboard = () => {
     const [activeSection, setActiveSection] = useState("addProducts");
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    // Decode the token to get the isAdmin field
     const token = localStorage.getItem('token');
     const decodedToken = token ? jwtDecode(token) : null;
     const isAdmin = decodedToken?.isAdmin;
@@ -65,6 +65,12 @@ const AdminDashboard = () => {
                 </div>
                 <div
                     style={styles.sidebarItem}
+                    onClick={() => handleSectionToggle('EditProfile')}
+                >
+                    Edit Profile
+                </div>
+                <div
+                    style={styles.sidebarItem}
                     onClick={() => handleSectionToggle('addProducts')}
                 >
                     Add Product
@@ -79,7 +85,7 @@ const AdminDashboard = () => {
                     style={styles.sidebarItem}
                     onClick={() => navigate('/')}
                 >
-                    Back to shop
+                    Back to shopX
                 </div>
                 <div
                     style={{ ...styles.sidebarItem, marginTop: 'auto', backgroundColor: '#E74C3C', color: '#fff' }}
@@ -99,6 +105,11 @@ const AdminDashboard = () => {
                 {activeSection === 'ManageUsers' && (
                     <div style={styles.section}>
                         <ManageUsers isAdmin={isAdmin} />
+                    </div>
+                )}
+                {activeSection === 'EditProfile' && (
+                    <div style={styles.section}>
+                        <ManageAccount />
                     </div>
                 )}
 

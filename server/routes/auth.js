@@ -7,5 +7,7 @@ router.get('/', checkAuth, authController.getAllUsers);
 router.post('/addUser', checkAuth, checkAdmin, authController.addUser);
 router.delete('/:userId', checkAuth, checkAdmin, authController.deleteUser);
 router.put('/updateRole/:id', checkAuth, checkAdmin, authController.updateUserRole);
+router.get('/getPersonalInfo', checkAuth, authController.getPersonalInfo);
+router.put('/editPersonalInfo', checkAuth, authController.editPersonalInfo);
 
 module.exports = router;
